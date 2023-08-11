@@ -1,7 +1,7 @@
 ---
-name: "✅ 기능 추가"
+name: "✅ Feature report"
 about: 작업 사항 입력
-title: 기능 추가
+title: Feature report
 labels: ''
 assignees: ''
 
