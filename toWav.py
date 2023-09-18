@@ -11,6 +11,9 @@ def is_folderpath(folder_path):
 
 for dirname, _, filenames in os.walk("dataset/m4a"):
     for filename in filenames:
+        if dirname!='dataset/wav/9':
+            continue
+
         m4a_file = os.path.join(dirname, filename)
         start_pos = m4a_file.rfind('/')
         alpha = m4a_file[start_pos-1:start_pos]
@@ -27,7 +30,7 @@ for dirname, _, filenames in os.walk("dataset/m4a"):
 
         # print(start_pos, end_pos, imsi_breed)
 
-        filepath = "dataset/tempWav/" + str(alpha) + "/" + str(alpha) + str(i) + ".wav"
+        filepath = "dataset/tempWav/" + str(alpha) + "/" + str(alpha) + "_" + str(i) + ".wav"
         folder_path = "dataset/tempWav/" + str(alpha)
         is_folderpath(folder_path)
         print(filepath)
