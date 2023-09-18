@@ -9,7 +9,7 @@ def is_folderpath(folder_path):
 
 for dirname, _, filenames in os.walk("dataset/m4a"):
     for filename in filenames:
-        if dirname!='dataset/wav/9':
+        if dirname!='dataset/m4a/0':
             continue
 
         m4a_file = os.path.join(dirname, filename)
