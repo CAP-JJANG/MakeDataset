@@ -17,11 +17,11 @@
     
 2. toSpeedWav.py
 
-   wav 파일을 1.25배속, 1.5배속 진행한 후, 스펙트로그램 이미지로 변환합니다.
+   wav 파일을 1.25배속, 1.50배속합니다.
     
 3. WavToSpectrogram.py
    
-    1번에서 얻은 wav 파일을 Librosa 라이브러리를 이용해 스펙트로그램 이미지로 변환합니다.
+    1번과 2번에서 얻은 wav 파일을 Librosa 라이브러리를 이용해 스펙트로그램 이미지로 변환합니다.
     
 4. resizeImage.py
 
