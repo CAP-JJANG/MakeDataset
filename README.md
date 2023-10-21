@@ -62,33 +62,55 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
 ## 🦾 주요 기술
 
 * PyCharm IDE
-* Python 3.9.13
-* Ipython 8.15.0
-* Librosa 0.10.1
-* Matplotlib 3.7.2
-* Numpy 1.25.2
-* Pandas 2.1.1
-* Pillow 10.0.1
-* Pydub 0.25.1
+* Python: 3.9.13
+* Ipython: 8.15.0
+* Librosa: 0.10.1
+* Matplotlib: 3.7.2
+* Numpy: 1.25.2
+* Pandas: 2.1.1
+* Pillow: 10.0.1
+* Pydub: 0.25.1
 
 
 <br><br>
 ## ⭐️ 설치 방법
 1. clone [github 리포지토리 주소]
 2. 가상환경 생성
-    1. python -m venv venv 또는 python3 -m venv venv
+   ```
+   python -m venv venv
+   ```
+   또는
+   
+   ```
+   python3 -m venv venv
+   ```
 3. 가상환경 실행
-    1. Windows
-        1. venv\Scripts\activate
-    2. macOS 및 Linux
-        1. source venv/bin/activate
+    - Windows
+       ```
+       venv\Scripts\activate
+       ```
+    - macOS 및 Linux
+       ```
+       source venv/bin/activate
+       ```
 4. pip 최신버전으로 업그레이드
-   python -m pip install --upgrade pip
+   ```
+   python -m pip install —upgrade pip
+   ```
     또는
-   python3 -m pip install --upgrade pip
+    
+   ```
+   python3 -m pip install —upgrade pip
+   ```
 5. 패키지 설치
-    1. pip install -r requirements.txt
-    2. pip3 install -r requirements.txt <br>
+   ```
+   pip install -r requirements.txt
+   ```
+   또는
+   
+   ```
+   pip3 install -r requirements.txt
+   ```
 6. 순서대로 프로젝트 Run
 
 <br><br>
