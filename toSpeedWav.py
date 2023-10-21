@@ -1,85 +1,63 @@
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import wave
-import numpy as np
-import librosa, librosa.display
-import matplotlib.pyplot as plt
-from os import path
+from pydub import AudioSegment
 
+BASE_PATH = "dataset/tempWav"  # 원본 WAV 파일이 있는 폴더 경로 지정
+OUTPUT_PATH = "dataset/wav"  # 속도 변환한 WAV 파일을 저장할 폴더 경로 지정
+SILENT_FILE_PATH = "dataset/silent.wav"
+silent_audio = AudioSegment.from_wav(SILENT_FILE_PATH)
+SPEEDS = [1.00, 0.90, 1.10]
 IMAGE_SIZE = 224
 
-def is_folderpath(folder_path):
+
+def ensure_folder_exists(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
+
 # tempWav 파일 길이 얻는 함수
-def get_wav_length(file_name):
+def get_wav_duration(file_name):
     audio = wave.open(file_name)
     frames = audio.getnframes()
     rate = audio.getframerate()
     duration = frames / float(rate)
-    return round(duration,2) # 소수점 두번째 자리까지 반환
+    return round(duration, 2)  # Return with two decimal places
 
 
 # tempWav 파일 합치는 함수
-
-from pydub import AudioSegment
-
-SILENT_FILE_PATH = "dataset/silent.wav"
-file2 = AudioSegment.from_wav(SILENT_FILE_PATH)
-
-
-def combine_file(short_file):
-    file1 = short_file
-
-    combined_file = file1 + file2
-    return combined_file
-
-
-from pydub import AudioSegment
-import IPython.display as ipd
+# speed를 조절했을때 peak 이후 1초가 나오는 것을 보장하기 위해 묵음 파일과 합쳐 파일 길이를 늘린다.
+def combine_with_silence(short_audio):
+    combined_audio = short_audio + silent_audio
+    return combined_audio
 
 
 # 음성 속도 조절 함수
-def change_speed(dir_path, speed_factor):
-    for dirname, _, filenames in os.walk(dir_path):
+def adjust_audio_speed(input_dir, speed_factor):
+    for dirname, _, filenames in os.walk(input_dir):
         for wav_file in filenames:
-            if dirname != 'dataset/tempWav/1':
+            if wav_file == ".DS_Store":
                 continue
 
-            wav_file_path = dirname + "/" + wav_file
-            wav_file = wav_file[:-4]
-            # WAV 파일 로드
-            sound = AudioSegment.from_wav(wav_file_path)
-            sound = combine_file(sound)
+            wav_file_path = os.path.join(dirname, wav_file)
+            sub_dir = os.path.basename(dirname)
+
+            # Load the WAV file
+            audio = AudioSegment.from_wav(wav_file_path)
+            audio = combine_with_silence(audio)
 
             # 음성 속도 조절
-            sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
-                "frame_rate": int(sound.frame_rate * speed_factor)
+            adjusted_audio = audio._spawn(audio.raw_data, overrides={
+                "frame_rate": int(audio.frame_rate * speed_factor)
             })
 
-            sub_dir_pos = dirname.rfind('/')
-            sub_dir = dirname[sub_dir_pos + 1]
-
-            # 조절된 WAV 파일 저장
-            new_filename = f"dataset/wav/{sub_dir}/{wav_file}_speed_{speed_factor:.2f}.wav"
-            folder_path = f"dataset/wav/{sub_dir}"
-            is_folderpath(folder_path)
+            # Save the adjusted WAV file
+            new_filename = os.path.join(OUTPUT_PATH, sub_dir,
+                                        f"{os.path.splitext(wav_file)[0]}_speed_{speed_factor:.2f}.wav")
+            folder_path = os.path.join(OUTPUT_PATH, sub_dir)
+            ensure_folder_exists(folder_path)
             print(new_filename)
-            sound_with_altered_frame_rate.export(new_filename, format="wav")
-            #print(get_wav_length(wav_file_path), "! after: ", get_wav_length(new_filename))
-            # print(f"Speed of {wav_file} has been changed to {speed_factor}. New file: {new_filename}")
+            adjusted_audio.export(new_filename, format="wav")
 
 
-DIR_PATH = "dataset/tempWav"
-SPEED0 = 1.00
-SPEED1 = 0.90
-SPEED2 = 1.1
-change_speed(DIR_PATH, SPEED0)
-change_speed(DIR_PATH, SPEED1)
-change_speed(DIR_PATH, SPEED2)
-
-#ipd.Audio(WAV_FILE) # load a local WAV file
-#ipd.Audio("/kaggle/working/wavfiles/a/a1_speed_3.00.tempWav") # load a local WAV file
-
+for speed in SPEEDS:
+    adjust_audio_speed(BASE_PATH, speed)

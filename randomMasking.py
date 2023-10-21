@@ -3,74 +3,68 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 이미지 폴더 경로 설정
-image_folder_path = "dataset/image224/1"  # 스펙트로그램 이미지가 있는 폴더 경로 지정
+BASE_PATH = "dataset/image224"
 
 # 사각형의 크기 (고정값)
 # 가로
-# rect_width = 174
-# rect_height = 25
+rect_width_h = 174
+rect_height_h = 25
 # 세로
-rect_width = 25
-rect_height = 174
+rect_width_v = 25
+rect_height_v = 174
 
 # 사각형이 들어가는 범위 설정
 # 가로
-# rect_x_start = 28
-# rect_x_end = 29  # 스펙트로그램 이미지의 가로 크기에 따라 설정 (0 ~ width-rect_width 사이의 값)
-# rect_y_start = 28.2
-# rect_y_end = 184  # 스펙트로그램 이미지의 세로 크기에 따라 설정 (0 ~ height-rect_height 사이의 값)
+rect_x_start_h = 28
+rect_x_end_h = 29  # 스펙트로그램 이미지의 가로 크기에 따라 설정 (0 ~ width-rect_width 사이의 값)
+rect_y_start_h = 28.2
+rect_y_end_h = 184  # 스펙트로그램 이미지의 세로 크기에 따라 설정 (0 ~ height-rect_height 사이의 값)
 # 세로
-rect_x_start = 28
-rect_x_end = 175  # 스펙트로그램 이미지의 가로 크기에 따라 설정 (0 ~ width-rect_width 사이의 값)
-rect_y_start = 26
-rect_y_end = 27  # 스펙트로그램 이미지의 세로 크기에 따라 설정 (0 ~ height-rect_height 사이의 값)
+rect_x_start_v = 28
+rect_x_end_v = 175  # 스펙트로그램 이미지의 가로 크기에 따라 설정 (0 ~ width-rect_width 사이의 값)
+rect_y_start_v = 26
+rect_y_end_v = 27  # 스펙트로그램 이미지의 세로 크기에 따라 설정 (0 ~ height-rect_height 사이의 값)
 
-print(rect_width, rect_height)
 
-for dirname, _, filenames in os.walk(image_folder_path):
-    # 폴더 내의 모든 이미지 파일 로드
-    for file_name in filenames:
-        # 속도 00인 원본만
-        if '_1.00' not in file_name:
+def is_folderpath(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+
+output_path = "dataset/image224"  # 마스킹된 이미지를 원본 이미지 폴더에 저장
+
+for root, dirs, filenames in os.walk(BASE_PATH):
+    for filename in filenames:
+        if '_1.00' not in filename:  # 속도 1.00인 원본 이미지만 처리
             continue
-        if 'hmasked' in file_name:
+        if 'hmasked' in filename or 'vmasked' in filename:  # 이미 처리된 이미지는 건너뜁니다.
             continue
-        if 'vmasked' in file_name:
-            continue
-        if file_name.endswith(".png") or file_name.endswith(".jpg"):  # 이미지 파일 확장자에 따라 수정
-            image_file_path = os.path.join(dirname, file_name)
-            spec_image = plt.imread(image_file_path)
 
-            # 스펙트로그램 이미지에 랜덤 마스킹 적용
-            masked_spec_image = np.copy(spec_image)
-            height, width, _ = masked_spec_image.shape
-            num_rectangles = 1  # 가리개 사각형 개수
-            for i in range(num_rectangles):
-                x = np.random.randint(rect_x_start, rect_x_end)
-                y = np.random.randint(rect_y_start, rect_y_end)
-                masked_spec_image[y:y + rect_height, x:x + rect_width, :] = 0  # 마스킹된 영역을 검정색(0)으로 설정
+        image_file_path = os.path.join(root, filename)
+        spec_image = plt.imread(image_file_path)
 
-                # 마스킹된 이미지 로컬에 저장
-                # 가로
-                # masked_image_file_name = "hmasked_" + file_name  # 저장할 이미지 파일명 지정
-                # 세로
-                masked_image_file_name = "vmasked_" + file_name  # 저장할 이미지 파일명 지정
-                masked_image_file_path = os.path.join(dirname, masked_image_file_name)  # 저장할 이미지 파일 경로 지정
-                plt.imsave(masked_image_file_path, masked_spec_image)
-                print(f"Masked image saved: {masked_image_file_path}")
+        # 스펙트로그램 이미지에 랜덤 마스킹 적용
+        masked_spec_image_h = np.copy(spec_image)
+        masked_spec_image_v = np.copy(spec_image)
+        num_rectangles = 1  # 가리개 사각형 개수
 
-            # 마스킹된 이미지 로컬에 적용
-            # 이미지 처리 코드 추가
-            # 예시로 matplotlib를 사용하여 이미지를 로컬에 저장하는 코드를 추가합니다.
-            # masked_image_file_path = os.path.join(image_folder_path, "masked_" + file_name)  # 저장할 이미지 파일 경로 지정
-            # plt.imsave(masked_image_file_path, masked_spec_image)
+        for i in range(num_rectangles):
+            # 랜덤 마스킹 - 가로
+            x = np.random.randint(rect_x_start_h, rect_x_end_h)
+            y = np.random.randint(rect_y_start_h, rect_y_end_h)
+            masked_spec_image_h[y:y + rect_height_h, x:x + rect_width_h, :] = 0  # 마스킹된 영역을 검정색(0)으로 설정
 
-            #이미지 처리 작업 예시: 마스킹된 이미지를 화면에 출력
-            # plt.figure(figsize=(10, 5))
-            # plt.subplot(1, 2, 1)
-            # plt.imshow(spec_image)
-            # plt.title("Original Spectrogram")
-            # plt.subplot(1, 2, 2)
-            # plt.imshow(masked_spec_image)
-            # plt.title("Masked Spectrogram")
-            # plt.show()
+            # 마스킹 된 이미지 로컬에 저장
+            masked_image_file_name = "hmasked_" + filename  # 저장할 이미지 파일명 지정
+            masked_image_file_path = os.path.join(root, masked_image_file_name)  # 저장할 이미지 파일 경로 지정
+            plt.imsave(masked_image_file_path, masked_spec_image_h)
+
+            # 랜덤 마스킹 - 세로
+            x = np.random.randint(rect_x_start_v, rect_x_end_v)
+            y = np.random.randint(rect_y_start_v, rect_y_end_v)
+            masked_spec_image_v[y:y + rect_height_v, x:x + rect_width_v, :] = 0  # 마스킹된 영역을 검정색(0)으로 설정
+
+            # 마스킹 된 이미지 로컬에 저장
+            masked_image_file_name = "vmasked_" + filename  # 저장할 이미지 파일명 지정
+            masked_image_file_path = os.path.join(root, masked_image_file_name)  # 저장할 이미지 파일 경로 지정
+            plt.imsave(masked_image_file_path, masked_spec_image_v)

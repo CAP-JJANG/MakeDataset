@@ -1,28 +1,26 @@
 import numpy as np
-import pandas as pd
-import librosa, librosa.display
+import librosa.display
 import matplotlib.pyplot as plt
 import os
 
-FIG_SIZE = (15, 10)
-DATA_NUM = 30
-
+BASE_PATH = "dataset/wav"  # M4A 파일이 있는 폴더 경로 지정
+OUTPUT_PATH = "dataset/image"  # WAV 파일을 저장할 폴더 경로 지정
 paths = []
-abel_gubuns = []
+labels = []
 
-def is_folderpath(folder_path):
+
+def ensure_folder_exists(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-for dirname, _, filenames in os.walk("dataset/wav/"):
+
+for dirname, _, filenames in os.walk(BASE_PATH):
     for filename in filenames:
-        if dirname!='dataset/wav/1':
-            continue
+        # 폴더 경로에서 라벨 명을 추출
+        label = os.path.basename(dirname)
 
         # load audio file with Librosa
-        file_path = dirname + '/' + filename
-
-        paths.append(file_path)
+        file_path = os.path.join(dirname, filename)
         sig, sr = librosa.load(file_path, sr=22050)
 
         # 에너지 평균 구하기
@@ -86,16 +84,12 @@ for dirname, _, filenames in os.walk("dataset/wav/"):
 
         dir_pos = filename.find('_')
         name_end_pos = filename.rfind('.')
-        abel_gubuns.append(filename[0])
-        # save spectrogram image
+        labels.append(filename[0])
 
-        folder_path = "dataset/image/" + filename[:dir_pos]
-        is_folderpath(folder_path)
-        plt.savefig(folder_path + '/' + filename[:name_end_pos] + '.jpg')
+        # 저장할 이미지 파일 경로 생성
+        folder_path = os.path.join(OUTPUT_PATH, label)
+        ensure_folder_exists(folder_path)
+        filepath = os.path.join(folder_path, filename[:name_end_pos] + '.jpg')
+
+        plt.savefig(filepath)
         plt.close()
-        # plt.show()
-
-pd.set_option('display.max_colwidth', 200)  # column의 width 설정
-data_df = pd.DataFrame({'path': paths, 'label': abel_gubuns})
-print('data_df shape:', data_df.shape)
-data_df.head()  # DataFrame 앞 5개 출력
