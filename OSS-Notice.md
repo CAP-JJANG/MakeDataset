@@ -4,20 +4,6 @@ This application is Copyright © CAP-JJANG. All rights reserved.
 
 The following sets forth attribution notices for third party software that may be contained in this application.
 
- **IPython**
-
-https://github.com/ipython/ipython
-
-Copyright 2001, Nathaniel Gray <n8gray@caltech.edu>
-
-Copyright 2008-Present, IPython Development Team
-
-Copyright 2001, Janko Hauser <jhauser@zscout.de>
-
-Copyright 2001-2007, Fernando Perez <fernando.perez@colorado.edu>
-
-BSD 3-Clause "New" or "Revised" License
-
  **librosa**
 
 https://librosa.org
@@ -42,14 +28,6 @@ Copyright 2005-2018, NumPy Developers.
 
 BSD 3-Clause "New" or "Revised" License
 
- **pandas**
-
-https://github.com/pandas-dev/pandas
-
-Copyright 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team
-
-BSD 3-Clause "New" or "Revised" License
-
  **Pillow**
 
 https://github.com/python-pillow/Pillow
@@ -69,7 +47,7 @@ MIT License
 # BSD 3-Clause "New" or "Revised" License #
 
 ``````````
-Copyright (c) 2023 CAP-JJANG. All rights reserved.
+Copyright (c) 2023 CAP-JJANG . All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
