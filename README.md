@@ -63,13 +63,13 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
 
 * PyCharm IDE
 * Python 3.9.13
-* ipython 8.15.0
-* librosa 0.10.1
-* matplotlib 3.7.2
-* numpy 1.25.2
-* pandas 2.1.1
+* Ipython 8.15.0
+* Librosa 0.10.1
+* Matplotlib 3.7.2
+* Numpy 1.25.2
+* Pandas 2.1.1
 * Pillow 10.0.1
-* pydub 0.25.1
+* Pydub 0.25.1
 
 
 <br><br>
