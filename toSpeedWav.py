@@ -45,7 +45,7 @@ import IPython.display as ipd
 def change_speed(dir_path, speed_factor):
     for dirname, _, filenames in os.walk(dir_path):
         for wav_file in filenames:
-            if dirname != 'dataset/tempWav/9':
+            if dirname != 'dataset/tempWav/1':
                 continue
 
             wav_file_path = dirname + "/" + wav_file

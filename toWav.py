@@ -3,20 +3,23 @@ import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 from pydub import AudioSegment
 
+i = 599
+
 def is_folderpath(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
 for dirname, _, filenames in os.walk("dataset/m4a"):
     for filename in filenames:
-        if dirname!='dataset/m4a/0':
+        if dirname!='dataset/m4a/1':
             continue
 
         m4a_file = os.path.join(dirname, filename)
         start_pos = m4a_file.rfind('/')
         alpha = m4a_file[start_pos-1:start_pos]
 
-        i = 1123
+        i+=1
+
         # if (i != 0):
         #     if (before_alpha != alpha):
         #         i = 1

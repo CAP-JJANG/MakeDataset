@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 이미지 폴더 경로 설정
-image_folder_path = "dataset/image224/"  # 스펙트로그램 이미지가 있는 폴더 경로 지정
+image_folder_path = "dataset/image224/1"  # 스펙트로그램 이미지가 있는 폴더 경로 지정
 
 # 사각형의 크기 (고정값)
 # 가로

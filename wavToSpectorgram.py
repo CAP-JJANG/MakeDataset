@@ -16,7 +16,7 @@ def is_folderpath(folder_path):
 
 for dirname, _, filenames in os.walk("dataset/wav/"):
     for filename in filenames:
-        if dirname!='dataset/wav/9':
+        if dirname!='dataset/wav/1':
             continue
 
         # load audio file with Librosa

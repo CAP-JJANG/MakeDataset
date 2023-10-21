@@ -3,7 +3,7 @@ import glob
 from PIL import Image
 
 # 이미지 크기 변환
-PATH = 'dataset/image/0'
+PATH = 'dataset/image/1'
 i = 0
 
 def is_folderpath(folder_path):
