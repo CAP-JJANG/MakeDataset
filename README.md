@@ -74,7 +74,8 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
 <br><br>
 ## ⭐️ 설치 방법
 1. clone [github 리포지토리 주소]
-2. 가상환경 생성
+2. cd MakeDataset
+3. 가상환경 생성
    ```
    python -m venv venv
    ```
@@ -83,7 +84,7 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
    ```
    python3 -m venv venv
    ```
-3. 가상환경 실행
+4. 가상환경 실행
     - Windows
        ```
        venv\Scripts\activate
@@ -92,16 +93,16 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
        ```
        source venv/bin/activate
        ```
-4. pip 최신버전으로 업그레이드
+5. pip 최신버전으로 업그레이드
    ```
-   python -m pip install —upgrade pip
+   python -m pip install —-upgrade pip
    ```
     또는
     
    ```
-   python3 -m pip install —upgrade pip
+   python3 -m pip install —-upgrade pip
    ```
-5. 패키지 설치
+6. 패키지 설치
    ```
    pip install -r requirements.txt
    ```
@@ -110,7 +111,7 @@ CSD-Model(음향 신호를 받아 해당 음향 신호가 무슨 알파벳인지
    ```
    pip3 install -r requirements.txt
    ```
-6. 순서대로 프로젝트 Run
+7. 순서대로 프로젝트 Run
 
 <br><br>
 ## 🤖 라이센스
